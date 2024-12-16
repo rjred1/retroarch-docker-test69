@@ -1,5 +1,5 @@
-# Use an NVIDIA base image with GPU support
-FROM nvidia/cuda:11.7.1-base-ubuntu20.04
+# Use NVIDIA's official CUDA base image with GPU support
+FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 
 # Install dependencies and RetroArch
 RUN apt-get update && apt-get install -y \
@@ -18,8 +18,8 @@ RUN mkdir -p /root/.config/retroarch
 ENV XDG_RUNTIME_DIR=/tmp/runtime
 RUN mkdir -p /tmp/runtime && chmod 700 /tmp/runtime
 
-# Expose ports for VNC or streaming
+# Expose ports for streaming or remote display
 EXPOSE 8080
 
-# Start Xvfb and RetroArch
+# Start Xvfb and RetroArch with GPU support
 CMD Xvfb :99 -screen 0 1280x720x16 & retroarch
